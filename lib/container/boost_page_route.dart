@@ -35,6 +35,7 @@ class BoostPageRoute<T> extends MaterialPageRoute<T> {
     this.uniqueId,
     this.animated,
     WidgetBuilder builder,
+    this.transitionsBuilder,
     RouteSettings settings,
   }) : super(builder: builder, settings: settings);
 
@@ -42,6 +43,7 @@ class BoostPageRoute<T> extends MaterialPageRoute<T> {
   final String uniqueId;
   final Map<String, dynamic> params;
   final bool animated;
+  final RouteTransitionsBuilder transitionsBuilder;
 
   final Set<VoidCallback> backPressedListeners = <VoidCallback>{};
 
@@ -66,5 +68,13 @@ class BoostPageRoute<T> extends MaterialPageRoute<T> {
   @override
   Future<RoutePopDisposition> willPop() {
     return Future<RoutePopDisposition>.value(RoutePopDisposition.pop);
+  }
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+    if(transitionsBuilder !=null){
+      return transitionsBuilder(context, animation, secondaryAnimation, child);
+    }
+    return super.buildTransitions( context, animation, secondaryAnimation, child);
   }
 }

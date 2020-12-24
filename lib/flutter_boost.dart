@@ -38,6 +38,9 @@ export 'container/container_manager.dart';
 typedef PageBuilder = Widget Function(
     String pageName, Map<String, dynamic> params, String uniqueId);
 
+typedef RsTransitionsBuilder = RouteTransitionsBuilder Function(
+    String pageName, Map<String, dynamic> params, String uniqueId);
+
 typedef PrePushRoute = Route<T> Function<T>(String url, String uniqueId,
     Map<String, dynamic> params, Route<dynamic> route);
 
@@ -62,6 +65,7 @@ class FlutterBoost {
       GlobalKey<ContainerManagerState>();
   final ObserversHolder _observersHolder = ObserversHolder();
   final BoostChannel _boostChannel = BoostChannel();
+   RsTransitionsBuilder transitionsBuilder;
 
 
 
@@ -134,6 +138,11 @@ class FlutterBoost {
   /// Register a map builders
   void registerPageBuilders(Map<String, PageBuilder> builders) {
     ContainerCoordinator.singleton.registerPageBuilders(builders);
+  }
+
+  /// Register a map builders
+  void registerTransitionsBuilder(RsTransitionsBuilder transitionsBuilder) {
+      this.transitionsBuilder = transitionsBuilder;
   }
 
   Future<Map<dynamic, dynamic>> open(

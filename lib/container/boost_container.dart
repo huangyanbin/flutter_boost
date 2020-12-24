@@ -86,6 +86,7 @@ class BoostContainer extends Navigator {
               params: settings.params,
               uniqueId: settings.uniqueId,
               animated: false,
+              transitionsBuilder: FlutterBoost.singleton.transitionsBuilder(settings.name,settings.params,settings.uniqueId),
               settings: RouteSettings(
                 name: settings.name,
                 arguments: routeSettings.arguments,
