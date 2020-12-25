@@ -42,6 +42,9 @@ typedef PageBuilder = Widget Function(
 typedef PrePushRoute = Route<T> Function<T>(String url, String uniqueId,
     Map<String, dynamic> params, Route<dynamic> route);
 
+typedef RsTransitionsBuilder = RouteTransitionsBuilder Function(String url, String uniqueId,
+    Map<String, dynamic> params);
+
 typedef PostPushRoute = void Function(
   String url,
   String uniqueId,
@@ -63,6 +66,7 @@ class FlutterBoost {
       GlobalKey<ContainerManagerState>();
   final ObserversHolder _observersHolder = ObserversHolder();
   final BoostChannel _boostChannel = BoostChannel();
+  RsTransitionsBuilder transitionsBuilder;
 
 
 
@@ -130,6 +134,11 @@ class FlutterBoost {
   /// Register a default page builder.
   void registerDefaultPageBuilder(PageBuilder builder) {
     ContainerCoordinator.singleton.registerDefaultPageBuilder(builder);
+  }
+
+  /// Register a default page builder.
+  void registerRsTransitionsBuilder(RsTransitionsBuilder builder) {
+    this.transitionsBuilder = builder;
   }
 
   /// Register a map builders
